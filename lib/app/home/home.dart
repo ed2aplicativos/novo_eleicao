@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/load_mock.dart';
 import 'package:simple_speed_dial/simple_speed_dial.dart';
 
 import '../../widgets/home_card.dart';
@@ -11,6 +12,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List listData = [];
+
+  Future<void> getData() async {
+    final data = await LoadMock.load('model_data.json');
+    listData = data['data'];
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+  // CaboModel get cabo {
+
+  //   return CaboModel.fromJson(listData);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,46 +42,19 @@ class _HomeState extends State<Home> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  HomeCard(
-                    nome: 'Eduardo Mendonça',
-                    cargo: 'Supervisor',
-                    dtNasc: '05/06/1982',
-                    telefone: '(67) 99241-3572',
-                    valorContrato: 'R\$ 10.000,00',
-                    onTap: () {},
-                  ),
-                  HomeCard(
-                    nome: 'Érico Mendonça',
-                    cargo: 'Supervisor',
-                    dtNasc: '20/05/1954',
-                    telefone: '(67) 99241-3572',
-                    valorContrato: 'R\$ 10.000,00',
-                    onTap: () {},
-                  ),
-                  HomeCard(
-                    nome: 'Penha Mendonça',
-                    cargo: 'Supervisor',
-                    dtNasc: '23/07/1957',
-                    telefone: '(67) 99241-3572',
-                    valorContrato: 'R\$ 10.000,00',
-                    onTap: () {},
-                  ),
-                  HomeCard(
-                    nome: 'Lais Ferreira',
-                    cargo: 'Supervisor',
-                    dtNasc: '10/02/1987',
-                    telefone: '(67) 99259-3588',
-                    valorContrato: 'R\$ 10.000,00',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
+          ListView.builder(
+            itemCount: listData.length,
+            padding: const EdgeInsets.all(8),
+            itemBuilder: (context, index) {
+              return HomeCard(
+                nome: listData[index]['nome'],
+                cargo: listData[index]['cargo'],
+                dtNasc: listData[index]['dtNasc'],
+                telefone: listData[index]['telefone'],
+                valorContrato: listData[index]['valorContrato'],
+                onTap: () {},
+              );
+            },
           ),
           Positioned(
             bottom: 35,

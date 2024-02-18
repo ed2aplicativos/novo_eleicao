@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../home/home.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,10 +15,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       const Duration(seconds: 3),
-      // () => Navigator.pushNamed(
-      //   context,
-      //   Routes.HOME,
-      // ),
       () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Home()),
