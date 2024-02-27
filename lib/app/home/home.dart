@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../utils/load_mock.dart';
-import 'package:simple_speed_dial/simple_speed_dial.dart';
 
+import '../../utils/load_mock.dart';
 import '../../widgets/home_card.dart';
+import '../usuario/cadastrar_usuario.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
   Future<void> getData() async {
     final data = await LoadMock.load('model_data.json');
     listData = data['data'];
+    setState(() {});
   }
 
   @override
@@ -24,10 +25,6 @@ class _HomeState extends State<Home> {
     getData();
     super.initState();
   }
-  // CaboModel get cabo {
-
-  //   return CaboModel.fromJson(listData);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,53 +36,31 @@ class _HomeState extends State<Home> {
         leading: Container(),
         centerTitle: true,
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          ListView.builder(
-            itemCount: listData.length,
-            padding: const EdgeInsets.all(8),
-            itemBuilder: (context, index) {
-              return HomeCard(
-                nome: listData[index]['nome'],
-                cargo: listData[index]['cargo'],
-                dtNasc: listData[index]['dtNasc'],
-                telefone: listData[index]['telefone'],
-                valorContrato: listData[index]['valorContrato'],
-                onTap: () {},
-              );
-            },
-          ),
-          Positioned(
-            bottom: 35,
-            right: 35,
-            child: SpeedDial(
-              speedDialChildren: [
-                SpeedDialChild(
-                  label: 'Cadastrar Supervisor',
-                  child: const Icon(Icons.supervisor_account),
-                  onPressed: () {
-                    // Get.to(
-                    //   () => const CadastrarSupervisor(),
-                    // );
-                  },
-                ),
-                SpeedDialChild(
-                  label: 'Cadastrar Cabo Eleitoral',
-                  child: const Icon(Icons.person_add_alt),
-                  onPressed: () {
-                    // Get.to(
-                    //   () => const CadastrarCaboEleitoral(),
-                    // );
-                  },
-                ),
-              ],
-              child: const Icon(
-                Icons.more_vert,
-              ),
+      body: ListView.builder(
+        itemCount: listData.length,
+        padding: const EdgeInsets.all(8),
+        itemBuilder: (context, index) {
+          return HomeCard(
+            nome: listData[index]['nome'],
+            cargo: listData[index]['cargo'],
+            dtNasc: listData[index]['dtNasc'],
+            telefone: listData[index]['telefone'],
+            valorContrato: listData[index]['valorContrato'],
+            qtdParcelas: listData[index]['qtdParcelas'],
+            onTap: () {},
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.person_add_alt),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CadastrarUsuario(),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

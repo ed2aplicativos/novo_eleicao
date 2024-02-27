@@ -6,6 +6,7 @@ class HomeCard extends StatefulWidget {
   final String dtNasc;
   final String telefone;
   final String valorContrato;
+  final String qtdParcelas;
   final VoidCallback onTap;
   const HomeCard({
     super.key,
@@ -14,6 +15,7 @@ class HomeCard extends StatefulWidget {
     required this.dtNasc,
     required this.telefone,
     required this.valorContrato,
+    required this.qtdParcelas,
     required this.onTap,
   });
 
@@ -64,19 +66,6 @@ class _HomeCardState extends State<HomeCard> {
                 Row(
                   children: [
                     const Text(
-                      'DN:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(width: 2),
-                    Text(widget.dtNasc),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text(
                       'Telefone:',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -98,6 +87,19 @@ class _HomeCardState extends State<HomeCard> {
                     ),
                     const SizedBox(width: 2),
                     Text(widget.valorContrato),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Qtd Parcelas:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(width: 2),
+                    Text(widget.qtdParcelas),
                   ],
                 ),
               ],
